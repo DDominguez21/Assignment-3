@@ -2,7 +2,8 @@ select
     id, 
     orderid as order_id, 
     status, 
-    amount / 100 as amount, 
+    {{ cents_to_dollars('amount') }} as amount, 
     created 
 
 from {{ source('stripe', 'payment')}}
+order by id
