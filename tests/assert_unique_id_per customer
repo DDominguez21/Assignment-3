@@ -1,0 +1,15 @@
+with 
+customers as (
+    select * from {{ ref('stg_customers')}}
+)
+
+select
+models:
+  - name: orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+from customers
+group by order_id
